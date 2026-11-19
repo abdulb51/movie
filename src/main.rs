@@ -43,34 +43,39 @@ async fn main() {
 let tm = TextureManager::new();
 //  tm.preload_with_loading_screen(&[""], None, None).await;
 
-     let lbl_movie = Label::new("MOVIE", 50.0, 100.0, 30);
-     let lbl_movie_ex = Label::new("movie (year),genres", 50.0, 100.0, 30);
-  let mut txt_movie = TextInput::new(100.0, 100.0, 300.0, 40.0, 25.0);
-
-       let lbl_rating = Label::new("RATING", 50.0, 100.0, 30);
-       let lbl_rating_ex = Label::new("(0-10)", 50.0, 100.0, 30);
-   let mut txt_rating = TextInput::new(100.0, 100.0, 300.0, 40.0, 25.0);
-
- let lbl_genres = Label::new("Genres", 50.0, 100.0, 30);
-       let lbl_genre_ex = Label::new("(0-10)", 50.0, 100.0, 30);
-   let mut txt_genre = TextInput::new(100.0, 100.0, 300.0, 40.0, 25.0);
-
-
-let movies = vec![""];
-    let mut list_movies = ListView::new(&movies, 100.0, 100.0, 50);
-
-
-let rating = vec![""];
-    let mut list_rating = ListView::new(&rating,100.0, 100.0, 50);
-
-
-let genres = vec![""];
-    let mut list_genre = ListView::new(&genres,100.0, 100.0, 50);
+     let mut lbl_movie = Label::new("MOVIE", 50.0, 100.0, 50);
+    // lbl_movie.with_colors(BLACK, Some(DARKGRAY));
+    let mut txt_movie = TextInput::new(50.0, 100.0, 300.0, 40.0, 25.0);
+    
+    let mut lbl_rating = Label::new("RATING", 250.0, 00.0, 30);
+    let mut txt_rating = TextInput::new(100.0, 500.0, 300.0, 40.0, 25.0);
+    
+    let lbl_genres = Label::new("Genres", 50.0, 700.0, 30);
+    let mut txt_genre = TextInput::new(100.0, 100.0, 800.0, 40.0, 25.0);
+    
+    
+    
+    let movies = vec![""];
+    let mut list_movies = ListView::new(&movies, 650.0, 100.0, 50);
+    
+    
+    let rating = vec![""];
+    let mut list_rating = ListView::new(&rating,900.0, 100.0, 50);
+    
+    
+    let genres = vec!["pee pee poo poo".to_string()];
+    let mut list_genre = ListView::new(&genres,900.0, 100.0, 50);
+    list_genre.with_colors(WHITE, Some(BLACK), Some(GRAY));
+    
+    
+    //    let lbl_rating_ex = Label::new("(0-10)", 50.0, 100.0, 30);
+    //  let mut lbl_movie_ex = Label::new("movie (year),genres", 50.0, 100.0, 30);
+    // let lbl_genre_ex = Label::new("(0-10)", 50.0, 100.0, 30);
 
 
     loop {                          
    clear_background(DARKBLUE);
-       draw_grid(50.0, BLACK);   
+       draw_grid(50.0, WHITE);   
 
     
 
@@ -83,6 +88,7 @@ txt_movie.draw();
 lbl_movie.draw();
 lbl_rating.draw();
 txt_rating.draw();
+list_genre.draw();
         next_frame().await;
     }
 }
