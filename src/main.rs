@@ -15,6 +15,8 @@ Display Data: Use rust to display the movie records.>
 mod ui;
 mod utils;
 
+
+use crate::utils::database::{DatabaseTable, create_database_client};
 use macroquad::{color, prelude::*};
 use crate::ui::still_image::StillImage;
  use crate::ui::text_input::TextInput;
@@ -22,6 +24,7 @@ use crate::ui::still_image::StillImage;
  use crate::ui::grid::draw_grid;
     use crate::ui::label::Label;
     use crate::ui::listview::ListView;
+    use crate::ui::text_button::TextButton;
 /// Set up window settings before the app runs
 fn window_conf() -> Conf {
     Conf {
@@ -43,28 +46,42 @@ async fn main() {
 let tm = TextureManager::new();
 //  tm.preload_with_loading_screen(&[""], None, None).await;
 
+   
+  let btn_create = TextButton::new(100.0, 300.0, 200.0, 60.0, "Create", BLUE, BLACK, 30);
+
+
+
+
+
+   
      let mut lbl_movie = Label::new("MOVIE", 50.0, 100.0, 50);
     // lbl_movie.with_colors(BLACK, Some(DARKGRAY));
     let mut txt_movie = TextInput::new(50.0, 100.0, 300.0, 40.0, 25.0);
     
-    let mut lbl_rating = Label::new("RATING", 250.0, 00.0, 30);
-    let mut txt_rating = TextInput::new(100.0, 500.0, 300.0, 40.0, 25.0);
+   
+   
+    let mut lbl_rating = Label::new("RATING", 250.0, 100.0, 30);
+    let mut txt_rating = TextInput::new(200.0, 100.0, 300.0, 40.0, 25.0);
     
+   
+   
     let lbl_genres = Label::new("Genres", 50.0, 700.0, 30);
     let mut txt_genre = TextInput::new(100.0, 100.0, 800.0, 40.0, 25.0);
     
     
     
-    let movies = vec![""];
+    let movies = vec!["Show/Movie"];
     let mut list_movies = ListView::new(&movies, 650.0, 100.0, 50);
+    list_movies.with_colors(WHITE, Some(BLACK), Some(GRAY));
     
     
-    let rating = vec![""];
+    let rating = vec!["Rating".to_string()];
     let mut list_rating = ListView::new(&rating,900.0, 100.0, 50);
+    list_rating.with_colors(WHITE, Some(BLACK), Some(GRAY));
     
     
-    let genres = vec!["pee pee poo poo".to_string()];
-    let mut list_genre = ListView::new(&genres,900.0, 100.0, 50);
+    let genres = vec!["Genre".to_string()];
+    let mut list_genre = ListView::new(&genres,1100.0, 100.0, 50);
     list_genre.with_colors(WHITE, Some(BLACK), Some(GRAY));
     
     
@@ -73,22 +90,34 @@ let tm = TextureManager::new();
     // let lbl_genre_ex = Label::new("(0-10)", 50.0, 100.0, 30);
 
 
+
+
+        let client = create_database_client();
     loop {                          
    clear_background(DARKBLUE);
        draw_grid(50.0, WHITE);   
 
     
 
+if btn_create.click() {
+            // Insert a record (from user text input)
+            let new_record = DatabaseTable {
+                id: 0,
+                movie: txt_movie.get_text().to_string(),
+                rating: txt_rating.get_text().to_string(),
+                 genre: txt_genre.get_text().to_string(),
+            };
+        }
 
-
-list_genre.draw();
-list_rating.draw();
 list_movies.draw();
 txt_movie.draw();
 lbl_movie.draw();
 lbl_rating.draw();
 txt_rating.draw();
+list_rating.draw();
 list_genre.draw();
+lbl_genres.draw();
+txt_genre.draw();
         next_frame().await;
     }
 }

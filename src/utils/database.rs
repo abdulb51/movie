@@ -144,7 +144,7 @@ fn is_zero(num: &i32) -> bool {
 }
 
 // URL of your Cloudflare Worker backend
-pub const WORKER_URL: &str = "https://db-worker.mathew-dusome.workers.dev";
+pub const WORKER_URL: &str = "https://evil-austin.abdulhadib51.workers.dev/";
 
 
 // ============================================================================
@@ -168,8 +168,11 @@ pub const WORKER_URL: &str = "https://db-worker.mathew-dusome.workers.dev";
 #[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct DatabaseTable {
     #[serde(default, skip_serializing_if = "is_zero")]
-    pub id: i32,
-    pub text: String,
+   pub id: i32,
+    pub movie: String,
+    pub rating: String,
+    pub  genre: String,
+
     // Example: Add more fields like this:
     // pub email: String,
     // pub age: i32,
