@@ -47,8 +47,9 @@ let tm = TextureManager::new();
 //  tm.preload_with_loading_screen(&[""], None, None).await;
 
    
-  let btn_create = TextButton::new(100.0, 300.0, 200.0, 60.0, "Create", BLUE, BLACK, 30);
+  let btn_add = TextButton::new(100.0, 300.0, 200.0, 60.0, "Add", BLUE, BLACK, 30);
 
+ let btn_update = TextButton::new(100.0, 350.0, 200.0, 60.0, "Update", BLUE, BLACK, 30);
 
 
 
@@ -99,7 +100,7 @@ let tm = TextureManager::new();
 
     
 
-if btn_create.click() {
+if btn_add.click() {
             // Insert a record (from user text input)
             let new_record = DatabaseTable {
                 id: 0,
@@ -108,6 +109,10 @@ if btn_create.click() {
                  genre: txt_genre.get_text().to_string(),
             };
         }
+
+
+
+
 
 list_movies.draw();
 txt_movie.draw();
