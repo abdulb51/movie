@@ -110,6 +110,31 @@ if btn_add.click() {
             };
         }
 
+          if btn_update.click() {
+           let mut records: Vec<DatabaseTable> = Vec::new();
+           let fetched_results = client.fetch_table("MOVIE").await;
+           if let Ok(result) = fetched_results {
+               records = result;
+           }
+           for i in &records {
+               println!("Movie: {}, Rating: {}, Genre: {}", i.movie, i.rating, i.genre);
+               if txt_movie.get_text() == i.movie && txt_rating.get_text() == i.rating && txt_genre.get_text() == i.genre {
+                   if let Ok(updated_count) = client.update_record_by_id
+                   ("MOVIE", i.id as i64, "Movie", &txt_movie.get_text()).await {
+                       // updated_count is the number of records updated
+                   } else {
+                       // Handle error
+                   }
+                   if let Ok(updated_count) = client.update_record_by_id
+                   ("MOVIE", i.id as i64, "Rating", &txt_rating.get_text()).await {
+                       // updated_count is the number of records updated
+                   } else {
+                       // Handle error
+                   }
+               }
+           }
+       }
+
 
 
 
