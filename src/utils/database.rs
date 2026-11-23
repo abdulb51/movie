@@ -240,6 +240,18 @@ impl DatabaseClient {
             let resp = self.send_request(&payload).await?;
             Ok(resp["updated"].as_i64().unwrap_or(0))
         }
+             #[allow(unused)] // delete record by string id instead of ints (i deadass dont if it works yet tho) - abdul
+            pub async fn delete_record_by_string(&self, table: &str,  record: String) -> Result<i64, Box<dyn std::error::Error>> {
+            let payload = serde_json::json!({
+                "action": "delete",
+                "table": table,
+                "id": record
+            });
+          let resp = self.send_request(&payload).await?;
+            Ok(resp["updated"].as_i64().unwrap_or(0))
+        }
+
+
 
         #[allow(unused)]
         pub async fn update_record_by_id(&self, table: &str, id: i64, column: &str, value: &str) -> Result<i64, Box<dyn std::error::Error>> {
@@ -264,7 +276,9 @@ impl DatabaseClient {
             let resp = self.send_request(&payload).await?;
             Ok(resp["deleted"].as_i64().unwrap_or(0))
         }
+
         
+     
         #[allow(unused)]
         async fn send_request(&self, payload: &serde_json::Value) -> Result<serde_json::Value, Box<dyn std::error::Error>> {
             let body = payload.to_string();

@@ -52,6 +52,7 @@ let tm = TextureManager::new();
  let btn_update = TextButton::new(100.0, 350.0, 200.0, 60.0, "Update", BLUE, BLACK, 30);
 
 
+ let btn_delete = TextButton::new(100.0, 350.0, 200.0, 60.0, "Update", BLUE, BLACK, 30);
 
 
    
@@ -98,7 +99,45 @@ let tm = TextureManager::new();
    clear_background(DARKBLUE);
        draw_grid(50.0, WHITE);   
 
-    
+
+
+    // by movie names instead of ID
+       if btn_delete.click() {
+    //        let mut records: Vec<DatabaseTable> = Vec::new();
+    //        let fetched_results = client.fetch_table("MOVIE").await;
+    //        if let Ok(result) = fetched_results {
+    //            records = result;
+    //        }
+    //        for i in &records {
+    //            println!("movie: {}, rating: {}, genre: {}", i.movie, i.rating, i.genre);
+    //            if txt_movie.get_text() == i.movie && txt_rating.get_text() == i.rating && txt_genre.get_text() == i.genre {
+    //                if let Ok(deleted_count) = client.delete_record_by_string("MOVIE", i.movie.clone()).await {
+    //                    // deleted_count is the number of records deleted
+    //                } else {
+    //                    // Handle error
+    //                }
+    //            }
+    //        }
+    //    
+
+         let mut records: Vec<DatabaseTable> = Vec::new();
+           let fetched_results = client.fetch_table("MOVIE").await;
+           if let Ok(result) = fetched_results {
+               records = result;
+           }
+           for i in &records {
+               println!("movie: {}, rating: {}, genre: {}, id: {}",i.id, i.movie, i.rating, i.genre);
+               if txt_movie.get_text() == i.movie && txt_rating.get_text() == i.rating && txt_genre.get_text() == i.genre {
+                   if let Ok(deleted_count) = client.delete_record_by_id("MOVIE", i.id as i64).await {
+                       // deleted_count is the number of records deleted
+                   } else {
+                       // Handle error
+                   }
+               }
+           }
+       }
+       
+
 
 if btn_add.click() {
             // Insert a record (from user text input)
@@ -128,6 +167,11 @@ if btn_add.click() {
                    if let Ok(updated_count) = client.update_record_by_id
                    ("MOVIE", i.id as i64, "Rating", &txt_rating.get_text()).await {
                        // updated_count is the number of records updated
+                
+                    if let Ok(updated_count) = client.update_record_by_id
+                   ("MOVIE", i.id as i64, "Genre", &txt_genre.get_text()).await {
+                       // updated_count is the number of records updated
+                   }
                    } else {
                        // Handle error
                    }
